@@ -32,5 +32,9 @@
   },
   "volta": {
     "node": "16.3.0"
+  },
+  "dependencies": {
+    "three": "^0.137.5",
+    "web-ifc-three": "^0.0.103"
   }
 }
