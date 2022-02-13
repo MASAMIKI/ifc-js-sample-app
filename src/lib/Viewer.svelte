@@ -1,7 +1,7 @@
 <script lang="ts">
   import {onMount, onDestroy, setContext} from 'svelte';
   import {Card} from 'attractions';
-  import {key as sceneKey, SceneContext, IFCInfo} from './IFC';
+  import {key as sceneKey, SceneContext, IFCInfo} from './ifc';
   import {IfcViewerAPI} from 'web-ifc-viewer';
 
   let canvasWidth: number;
@@ -63,6 +63,7 @@
   $: canvasWidth, onResizeCanvas();
   $: canvasHeight, onResizeCanvas();
 </script>
+
 
 <Card outline tight style="width: {width}; height: {height};">
     {#if $$slots.leftSidebar}

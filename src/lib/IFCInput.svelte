@@ -1,7 +1,7 @@
 <script lang="ts">
   import {getContext} from 'svelte';
   import {FileDropzone} from 'attractions';
-  import {key as sceneKey, SceneContext, IFCInfo} from './IFC';
+  import {key as sceneKey, SceneContext, IFCInfo} from './ifc';
 
   // viteがweb-ifc-three/IFC/components/IFCModelをresolveできず、exampleから取得
   import {IFCModel} from 'three/examples/jsm/loaders/IFCLoader';
@@ -43,22 +43,23 @@
   const onChange = (value: CustomEvent) => {
     const viewer = getViewer();
 
-    /*eslint-disable */
     const diffList = getIfcInfoList().filter((ifcInfo) => {
-      return !value.detail.files.includes(ifcInfo.file)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      return !value.detail.files.includes(ifcInfo.file);
     });
-    /* eslint-enable */
 
     removeIFCModel(viewer, diffList);
 
-    /*eslint-disable */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     value.detail.files.forEach((file: File) => {
       if (getIfcInfoList().some((ifcInfo) => ifcInfo.file === file)) return;
 
       const ifcURL = URL.createObjectURL(file);
-      viewer.IFC.loader.load(ifcURL, (ifcModel) => addIFCModel(viewer, file, ifcModel));
+      viewer.IFC.loader.load(
+          ifcURL,
+          (ifcModel) => addIFCModel(viewer, file, ifcModel),
+      );
     });
-    /* eslint-enable */
   };
 
 </script>
