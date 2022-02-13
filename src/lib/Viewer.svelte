@@ -71,7 +71,7 @@
         </Card>
     {/if}
     {#if $$slots.rightSidebar}
-        <Card outline class="m-10" style="position: absolute; z-index: 2; right: 10px">
+        <Card outline class="m-10" style="position: absolute; z-index: 2; right: 8px">
             <slot name="rightSidebar" />
         </Card>
     {/if}

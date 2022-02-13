@@ -2,10 +2,10 @@
   import {getContext} from 'svelte';
   import {FileDropzone} from 'attractions';
   import {key as sceneKey, SceneContext, IFCInfo} from './IFC';
-  import type {Scene} from 'three';
 
   // viteがweb-ifc-three/IFC/components/IFCModelをresolveできず、exampleから取得
   import {IFCModel} from 'three/examples/jsm/loaders/IFCLoader';
+  import type {IfcViewerAPI} from 'web-ifc-viewer';
 
   const {
     getViewer,
@@ -14,40 +14,49 @@
     removeIfcInfoList,
   } = getContext<SceneContext>(sceneKey);
 
-  const addIFCModel = (scene: Scene, file: File, ifcModel: IFCModel) => {
+  const addIFCModel = (viewer: IfcViewerAPI, file: File, ifcModel: IFCModel) => {
+    const scene = viewer.context.getScene();
+
     scene.add(ifcModel.mesh);
     pushIfcInfoList({file, ifcModel} as IFCInfo);
+    setIfcModelToContext(viewer);
   };
 
-  const removeIFCModel = (scene: Scene, ifcInfoList: IFCInfo[]) => {
+  const removeIFCModel = (viewer: IfcViewerAPI, ifcInfoList: IFCInfo[]) => {
+    const scene = viewer.context.getScene();
+
     ifcInfoList.forEach((ifcInfo) => {
       scene.remove(ifcInfo.ifcModel.mesh);
       removeIfcInfoList(ifcInfo);
     });
+    setIfcModelToContext(viewer);
+  };
+
+  const setIfcModelToContext = (viewer: IfcViewerAPI) => {
+    const currentIfcModels = getIfcInfoList().map((ifcInfo) => ifcInfo.ifcModel);
+    viewer.context.items.ifcModels = currentIfcModels;
+    viewer.context.items.pickableIfcModels = currentIfcModels;
   };
 
   // sets up the IFC loading
   // IFCの読み込み設定
   const onChange = (value: CustomEvent) => {
     const viewer = getViewer();
-    const scene = viewer.context.getScene();
-    const ifcInfoList = getIfcInfoList();
 
     /*eslint-disable */
-    const diffList = ifcInfoList.filter((ifcInfo) => {
+    const diffList = getIfcInfoList().filter((ifcInfo) => {
       return !value.detail.files.includes(ifcInfo.file)
     });
     /* eslint-enable */
 
-    removeIFCModel(scene, diffList);
+    removeIFCModel(viewer, diffList);
 
     /*eslint-disable */
     value.detail.files.forEach((file: File) => {
-      const ifcInfoList = getIfcInfoList();
-      if (ifcInfoList.some((ifcInfo) => ifcInfo.file === file)) return;
+      if (getIfcInfoList().some((ifcInfo) => ifcInfo.file === file)) return;
 
       const ifcURL = URL.createObjectURL(file);
-      viewer.IFC.loader.load(ifcURL, (ifcModel) => addIFCModel(scene, file, ifcModel));
+      viewer.IFC.loader.load(ifcURL, (ifcModel) => addIFCModel(viewer, file, ifcModel));
     });
     /* eslint-enable */
   };
