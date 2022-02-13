@@ -13,7 +13,19 @@ We recommend you to use [Volta](https://volta.sh/)
 Before you start this application, you have to install dependencies with the command `yarn install`.
 
 ### Development Environment
+1. Install packages
 
+```shell
+yarn install
+```
+
+2. Install wasm
+
+```shell
+yarn setup
+```
+
+3. Start development enviromnet
 ```shell
 yarn dev
 ```
