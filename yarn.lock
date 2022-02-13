@@ -1225,6 +1225,11 @@ svelte-hmr@^0.14.9:
   resolved "https://registry.npmjs.org/svelte-hmr/-/svelte-hmr-0.14.9.tgz"
   integrity sha512-bKE9+4qb4sAnA+TKHiYurUl970rjA0XmlP9TEP7K/ncyWz3m81kA4HOgmlZK/7irGK7gzZlaPDI3cmf8fp/+tg==
 
+svelte-json-tree@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/svelte-json-tree/-/svelte-json-tree-0.1.0.tgz#2711e36162046a10766dfbef69739168a5eaafa6"
+  integrity sha512-ufKWvS94z5m6Je9Hu0yosvdALy0mOPcaexbTcQQ/jW+3Rzi4oaHkOeg4RQ3cNpOlOQlIs0lfsF9FBlyquZ7XuQ==
+
 svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.3:
   version "4.10.3"
   resolved "https://registry.npmjs.org/svelte-preprocess/-/svelte-preprocess-4.10.3.tgz"
