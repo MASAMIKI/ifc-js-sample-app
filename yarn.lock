@@ -278,6 +278,11 @@ callsites@^3.0.0:
   resolved "https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
+camera-controls@^1.33.1:
+  version "1.34.1"
+  resolved "https://registry.yarnpkg.com/camera-controls/-/camera-controls-1.34.1.tgz#e67d759e5df6cd1119273e1910419ba62951c27b"
+  integrity sha512-cw1zfO3pVB87VHz0TVTtfBpv3C7hMi11Ia7utGiskDOJRngOtm8U9JPDqD7QGpJL1f+M8y7aZXRDJtGkRGTHsQ==
+
 chalk@^4.0.0:
   version "4.1.2"
   resolved "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz"
@@ -326,6 +331,11 @@ cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+dat.gui@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/dat.gui/-/dat.gui-0.7.7.tgz#7f96dbd21621a76385203659aebfa264ee6ae89b"
+  integrity sha512-sRl/28gF/XRC5ywC9I4zriATTsQcpSsRG7seXCPnTkK8/EQMIbCu5NPMpICLGxX9ZEUvcXR3ArLYCtgreFoMDw==
 
 debug@^4.1.1, debug@^4.3.2, debug@^4.3.3:
   version "4.3.3"
@@ -744,6 +754,11 @@ graceful-fs@^4.1.3:
   version "4.2.9"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.9.tgz"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
+
+gsap@^3.7.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.9.1.tgz#d4c7443540497afee9ddc0824fd0180224e33360"
+  integrity sha512-JSGVYoC6da4pIjdF/yxFU6Rz8OojOIDkbooveZlfNg0+JIoFoRruyfWAEi6R/gUeNcuOiTqUIb0gi1nCNrHf8w==
 
 has-flag@^4.0.0:
   version "4.0.0"
@@ -1307,6 +1322,14 @@ vite@^2.8.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+web-ifc-three@^0.0.102:
+  version "0.0.102"
+  resolved "https://registry.yarnpkg.com/web-ifc-three/-/web-ifc-three-0.0.102.tgz#198ffdb860cd6e74d6bda7ad4d44ff2bb69cf289"
+  integrity sha512-Mxx4tN89Lb4dZd/NKlKdiBaruhOt1MBfWZ20fx69cWrj0pWf+qLF1JuBcbM991+1+cgJKW4dvCGTmLgdzhnRog==
+  dependencies:
+    three-mesh-bvh "^0.5.2"
+    web-ifc "^0.0.32"
+
 web-ifc-three@^0.0.103:
   version "0.0.103"
   resolved "https://registry.yarnpkg.com/web-ifc-three/-/web-ifc-three-0.0.103.tgz#8e0f4172a8c193518a3a951d2adc12f03fa71f8a"
@@ -1314,6 +1337,18 @@ web-ifc-three@^0.0.103:
   dependencies:
     three-mesh-bvh "^0.5.2"
     web-ifc "^0.0.32"
+
+web-ifc-viewer@^1.0.137:
+  version "1.0.137"
+  resolved "https://registry.yarnpkg.com/web-ifc-viewer/-/web-ifc-viewer-1.0.137.tgz#97a33436a9838852da3ae82249b5fb3f5e9250a6"
+  integrity sha512-J1erzGNSmKdXnEt66whySG03+xKt2yEs6j6xD9dY2CFeEUNpOehWl6ODgaWVYAJdzR/siVFpsnH4ptvCjs5uwQ==
+  dependencies:
+    camera-controls "^1.33.1"
+    dat.gui "^0.7.7"
+    gsap "^3.7.1"
+    three-mesh-bvh "^0.5.2"
+    web-ifc "^0.0.32"
+    web-ifc-three "^0.0.102"
 
 web-ifc@^0.0.32:
   version "0.0.32"
