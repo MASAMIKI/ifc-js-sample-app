@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ignore ifc wasm
+public/web-ifc.wasm
+public/web-ifc-mt.wasm
