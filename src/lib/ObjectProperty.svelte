@@ -36,7 +36,7 @@
       const result = await viewer.IFC.selector.pickIfcItem(true);
       if (!result) return;
       const {modelID, id} = result;
-      const props = await viewer.IFC.getProperties(modelID, id, true, false);
+      const props = await viewer.IFC.getProperties(modelID, id, true, true);
       value = JSON.parse(JSON.stringify(props));
     }
     modalOpen = true;
