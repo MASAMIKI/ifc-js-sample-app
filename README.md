@@ -2,6 +2,9 @@
 
 This sample application to try IFC.js with Svelte and TypeScript in Vite.
 
+
+![image](https://user-images.githubusercontent.com/25860930/153759589-626b9a53-3634-4636-88af-2135b8fbbe14.png)
+
 ## Requirements
 This project owner use Volta to manage node versions.
 We recommend you to use [Volta](https://volta.sh/)
