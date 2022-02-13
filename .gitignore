@@ -26,3 +26,6 @@ dist-ssr
 # ignore ifc wasm
 public/web-ifc.wasm
 public/web-ifc-mt.wasm
+
+# .vscode
+.vscode
