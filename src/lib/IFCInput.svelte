@@ -1,7 +1,6 @@
 <script lang="ts">
   import {getContext} from 'svelte';
   import {FileDropzone} from 'attractions';
-  import {IFCLoader} from 'web-ifc-three/IFCLoader';
   import {key as sceneKey, SceneContext, IFCInfo} from './IFC';
   import type {Scene} from 'three';
 
@@ -9,10 +8,10 @@
   import {IFCModel} from 'three/examples/jsm/loaders/IFCLoader';
 
   const {
-    getScene,
+    getViewer,
     getIfcInfoList,
     pushIfcInfoList,
-    clearIfcInfoList,
+    removeIfcInfoList,
   } = getContext<SceneContext>(sceneKey);
 
   const addIFCModel = (scene: Scene, file: File, ifcModel: IFCModel) => {
@@ -20,24 +19,35 @@
     pushIfcInfoList({file, ifcModel} as IFCInfo);
   };
 
-  const resetIFCModels = (scene: Scene) => {
-    const ifcInfoList = getIfcInfoList();
+  const removeIFCModel = (scene: Scene, ifcInfoList: IFCInfo[]) => {
     ifcInfoList.forEach((ifcInfo) => {
       scene.remove(ifcInfo.ifcModel.mesh);
+      removeIfcInfoList(ifcInfo);
     });
-    clearIfcInfoList();
   };
 
   // sets up the IFC loading
   // IFCの読み込み設定
-  const ifcLoader = new IFCLoader();
   const onChange = (value: CustomEvent) => {
-    const scene = getScene();
-    resetIFCModels(scene);
+    const viewer = getViewer();
+    const scene = viewer.context.getScene();
+    const ifcInfoList = getIfcInfoList();
+
+    /*eslint-disable */
+    const diffList = ifcInfoList.filter((ifcInfo) => {
+      return !value.detail.files.includes(ifcInfo.file)
+    });
+    /* eslint-enable */
+
+    removeIFCModel(scene, diffList);
+
     /*eslint-disable */
     value.detail.files.forEach((file: File) => {
+      const ifcInfoList = getIfcInfoList();
+      if (ifcInfoList.some((ifcInfo) => ifcInfo.file === file)) return;
+
       const ifcURL = URL.createObjectURL(file);
-      ifcLoader.load(ifcURL, (ifcModel) => addIFCModel(scene, file, ifcModel));
+      viewer.IFC.loader.load(ifcURL, (ifcModel) => addIFCModel(scene, file, ifcModel));
     });
     /* eslint-enable */
   };

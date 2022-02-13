@@ -1,5 +1,5 @@
 import type {IFCModel} from 'web-ifc-three/IFC/components/IFCModel';
-import type {Scene} from 'three';
+import type {IfcViewerAPI} from 'web-ifc-viewer';
 
 export type IFCInfo = {
   file: File
@@ -7,9 +7,10 @@ export type IFCInfo = {
 }
 
 export type SceneContext = {
-  getScene: () => Scene
+  getViewer: () => IfcViewerAPI
   getIfcInfoList: () => IFCInfo[]
   pushIfcInfoList: (ifcInfo: IFCInfo) => void,
+  removeIfcInfoList: (ifcInfo: IFCInfo) => void,
   clearIfcInfoList: () => void,
 }
 
