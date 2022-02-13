@@ -32,4 +32,8 @@ module.exports = {
     'svelte3/ignore-styles': () => true
   },
   'ignorePatterns': ['node_modules'],
+  'rules': {
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'warn'
+  },
 };
