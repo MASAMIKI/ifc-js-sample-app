@@ -1,11 +1,11 @@
 <script lang="ts">
-  import {onMount} from 'svelte';
+  import {onMount, onDestroy, setContext} from 'svelte';
   import {Card} from 'attractions';
   import {
     AmbientLight,
     AxesHelper,
     DirectionalLight,
-    GridHelper, Material,
+    Material,
     PerspectiveCamera,
     Scene,
     WebGLRenderer,
@@ -13,6 +13,7 @@
   import {
     OrbitControls,
   } from 'three/examples/jsm/controls/OrbitControls';
+  import {key as sceneKey, SceneContext, IFCInfo} from './IFC';
 
   let canvasWidth: number;
   let canvasHeight: number;
@@ -20,9 +21,18 @@
   export let width = '100%';
   export let height = '80vh';
 
-  let scene: Scene;
   let camera: PerspectiveCamera;
   let renderer: WebGLRenderer;
+
+  setContext<SceneContext>(sceneKey, {
+    getScene: () => scene,
+    getIfcInfoList: () => ifcInfoLIst,
+    pushIfcInfoList: (ifcInfo: IFCInfo) => ifcInfoLIst.push(ifcInfo),
+    clearIfcInfoList: () => ifcInfoLIst.splice(0),
+  });
+
+  let scene: Scene;
+  const ifcInfoLIst: IFCInfo[] = [];
 
   onMount(() => {
     // create the Three.js scene
@@ -61,11 +71,6 @@
     renderer.setSize(canvasWidth, canvasHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // create the grid
-    // グリッドの生成
-    const grid = new GridHelper(50, 30);
-    scene.add(grid);
-
     // add the axes helper
     // AxesHelperの追加
     const axes = new AxesHelper();
@@ -87,6 +92,10 @@
       requestAnimationFrame(animate);
     };
     animate();
+  });
+
+  onDestroy(() => {
+    if (scene) scene.remove();
   });
 
   // check initialization of the canvas
@@ -112,8 +121,18 @@
 </script>
 
 <Card outline tight style="width: {width}; height: {height};">
+    {#if $$slots.leftSidebar}
+        <Card outline class="m-10" style="position: absolute; z-index: 2;">
+            <slot name="leftSidebar" />
+        </Card>
+    {/if}
+    {#if $$slots.rightSidebar}
+        <Card outline class="m-10" style="position: absolute; z-index: 2; right: 10px">
+            <slot name="rightSidebar" />
+        </Card>
+    {/if}
     <div class="three-canvas-container" bind:clientWidth={canvasWidth} bind:clientHeight={canvasHeight} >
-        <canvas bind:this={canvas} id="three-canvas"></canvas>
+        <canvas bind:this={canvas}></canvas>
     </div>
 </Card>
 
